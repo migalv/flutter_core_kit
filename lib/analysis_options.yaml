@@ -1,0 +1,16 @@
+include: package:very_good_analysis/analysis_options.5.1.0.yaml
+
+linter:
+  rules:
+    # We want to use a limit of 120 characters
+    lines_longer_than_80_chars: false
+
+analyzer:
+  errors:
+    one_member_abstracts: ignore
+
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.config.dart"
+    - "**/*.mocks.dart"
