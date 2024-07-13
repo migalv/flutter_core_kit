@@ -1,6 +1,6 @@
 name: flutter_core_kit
 description: A set of useful tools, classes, mixins & extensions used for flutter projects
-version: 0.1.1
+version: 0.1.2
 publish_to: none
 
 environment:
@@ -8,5 +8,8 @@ environment:
 
 dependencies:
   logger: ^2.3.0
+  riverpod: ^2.5.1
+  rxdart: ^0.28.0
+
 dev_dependencies:
   very_good_analysis: ^6.0.0
