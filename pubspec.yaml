@@ -8,8 +8,6 @@ environment:
 
 dependencies:
   logger: ^2.3.0
-  riverpod: ^2.5.1
-  rxdart: ^0.28.0
 
 dev_dependencies:
   very_good_analysis: ^6.0.0
