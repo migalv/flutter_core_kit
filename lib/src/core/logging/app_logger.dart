@@ -2,13 +2,16 @@ import 'dart:convert';
 
 import 'package:flutter_core_kit/src/core/logging/i_logger.dart';
 
-/// The global app logger class to log any necessary messages or errors
+/// A basic implementation of the [ILogger] interface. It logs to the console.
+///
+/// Optionally it can log to any output, by adding the logger to the `registeredLoggers` list
 class AppLogger implements ILogger {
   /// Creates a logger instance. It is recommended to create an instance for each file to have a different [baseContext]
   ///
   /// - [consoleLogger] Logger used to print to the console
   /// - [baseContext] will be added to every log in between "[]". This is usually the name of the class where this
   /// logger will be used
+  /// - [registeredLoggers] (Optional) a list of loggers that will also be called for their respective log levels
   const AppLogger({
     /// Logger used to print to the console
     required ILogger consoleLogger,
@@ -16,19 +19,18 @@ class AppLogger implements ILogger {
     /// Will be added to every log in between "[]". This is usually the name of the class where this
     required String baseContext,
 
-    /// (Optional) Logger that will store the logs in a local file
-    ILogger? fileLogger,
-
-    /// (Optional) Logger that send the logs to a crash report system
-    ILogger? crashReportLogger,
-  })  : _crashReportLogger = crashReportLogger,
-        _fileLogger = fileLogger,
-        _consoleLogger = consoleLogger,
-        _baseContext = baseContext;
+    /// (Optional) A list of loggers that will also be called for their respective log levels
+    ///
+    /// For example:
+    /// - Logger that will store the logs in a local file
+    /// - Logger that send the logs to a crash report system
+    List<ILogger> registeredLoggers = const [],
+  })  : _consoleLogger = consoleLogger,
+        _baseContext = baseContext,
+        _registeredLoggers = registeredLoggers;
 
   final ILogger _consoleLogger;
-  final ILogger? _fileLogger;
-  final ILogger? _crashReportLogger;
+  final List<ILogger> _registeredLoggers;
 
   /// The base context is the context that was used to create this logger -
   final String _baseContext;
@@ -47,15 +49,12 @@ class AppLogger implements ILogger {
       properties: properties,
     );
 
-    _fileLogger?.debug(
-      _formatLog(message, properties),
-      properties: properties,
-    );
-
-    _crashReportLogger?.debug(
-      _formatLog(message, properties),
-      properties: properties,
-    );
+    for (final logger in _registeredLoggers) {
+      logger.debug(
+        _formatLog(message, properties),
+        properties: properties,
+      );
+    }
   }
 
   /// This log will be logged to the systems the console, crash report system & optionally to a local file with INFO level
@@ -72,15 +71,12 @@ class AppLogger implements ILogger {
       properties: properties,
     );
 
-    _fileLogger?.info(
-      _formatLog(message, properties),
-      properties: properties,
-    );
-
-    _crashReportLogger?.info(
-      _formatLog(message, properties),
-      properties: properties,
-    );
+    for (final logger in _registeredLoggers) {
+      logger.info(
+        _formatLog(message, properties),
+        properties: properties,
+      );
+    }
   }
 
   /// This log will be logged to the systems the console, crash report system & optionally to a local file with WARNING level
@@ -107,19 +103,14 @@ class AppLogger implements ILogger {
       properties: properties,
     );
 
-    _fileLogger?.warning(
-      _formatLog(message, properties),
-      error: error,
-      stackTrace: stackTrace,
-      properties: properties,
-    );
-
-    _crashReportLogger?.warning(
-      _formatLog(message, properties),
-      error: error,
-      stackTrace: stackTrace,
-      properties: properties,
-    );
+    for (final logger in _registeredLoggers) {
+      logger.warning(
+        _formatLog(message, properties),
+        properties: properties,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
   }
 
   /// Error logs are used to inform that an error ocurred that should be notified to the development team
@@ -148,19 +139,14 @@ class AppLogger implements ILogger {
       properties: properties,
     );
 
-    _fileLogger?.error(
-      _formatLog(message, properties),
-      error: error,
-      stackTrace: stackTrace,
-      properties: properties,
-    );
-
-    _crashReportLogger?.error(
-      _formatLog(message, properties),
-      error: error,
-      stackTrace: stackTrace,
-      properties: properties,
-    );
+    for (final logger in _registeredLoggers) {
+      logger.error(
+        _formatLog(message, properties),
+        properties: properties,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
   }
 
   String _formatLog(
