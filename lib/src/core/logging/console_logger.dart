@@ -1,21 +1,19 @@
 import 'package:flutter_core_kit/src/core/logging/i_logger.dart';
 import 'package:logger/logger.dart';
+import 'package:talker/talker.dart';
 
 /// Logger that prints all the [Level.debug] messages to the system console using the [Logger] package & [PrettyPrinter]
 class ConsoleLogger implements ILogger {
   /// Logger that prints all the [Level.debug] messages to the system console using the [Logger] package & [PrettyPrinter]
   ConsoleLogger();
 
-  final Logger _logger = Logger(
-    printer: PrettyPrinter(),
-    level: Level.debug,
-  );
+  final Talker _logger = Talker();
 
   @override
-  void debug(String message, {Map<String, String?>? properties}) => _logger.d(message);
+  void debug(String message, {Map<String, String?>? properties}) => _logger.debug(message);
 
   @override
-  void info(String message, {Map<String, String?>? properties}) => _logger.i(message);
+  void info(String message, {Map<String, String?>? properties}) => _logger.info(message);
 
   @override
   void warning(
@@ -24,7 +22,7 @@ class ConsoleLogger implements ILogger {
     StackTrace? stackTrace,
     Map<String, String?>? properties,
   }) =>
-      _logger.w(message, error: error, stackTrace: stackTrace);
+      _logger.warning(message, error, stackTrace);
 
   @override
   void error(
@@ -33,5 +31,5 @@ class ConsoleLogger implements ILogger {
     required StackTrace stackTrace,
     Map<String, String?>? properties,
   }) =>
-      _logger.d(message, error: error, stackTrace: stackTrace);
+      _logger.debug(message, error, stackTrace);
 }

@@ -9,6 +9,7 @@ environment:
 dependencies:
   logger: ^2.3.0
   rxdart: ^0.28.0
+  talker: ^4.4.1
 
 dev_dependencies:
   very_good_analysis: ^6.0.0

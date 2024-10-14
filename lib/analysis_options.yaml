@@ -8,6 +8,9 @@ linter:
 analyzer:
   errors:
     one_member_abstracts: ignore
+    inference_failure_on_instance_creation: ignore
+    inference_failure_on_function_invocation: ignore
+    inference_failure_on_collection_literal: ignore
 
   exclude:
     - "**/*.g.dart"
