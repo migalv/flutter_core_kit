@@ -3,3 +3,4 @@ library flutter_core_kit;
 
 export 'src/core/core.dart';
 export 'src/extensions/extensions.dart';
+export 'src/interfaces/interfaces.dart';
