@@ -31,5 +31,5 @@ class ConsoleLogger implements ILogger {
     required StackTrace stackTrace,
     Map<String, String?>? properties,
   }) =>
-      _logger.debug(message, error, stackTrace);
+      _logger.error(message, error, stackTrace);
 }
