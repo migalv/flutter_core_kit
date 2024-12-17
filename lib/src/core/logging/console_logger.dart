@@ -5,9 +5,15 @@ import 'package:talker/talker.dart';
 /// Logger that prints all the [Level.debug] messages to the system console using the [Logger] package & [PrettyPrinter]
 class ConsoleLogger implements ILogger {
   /// Logger that prints all the [Level.debug] messages to the system console using the [Logger] package & [PrettyPrinter]
-  ConsoleLogger();
+  ConsoleLogger({
+    LogLevel logLevel = LogLevel.debug,
+  }) : _logger = Talker(
+          logger: TalkerLogger(
+            settings: TalkerLoggerSettings(level: logLevel),
+          ),
+        );
 
-  final Talker _logger = Talker();
+  final Talker _logger;
 
   @override
   void debug(String message, {Map<String, String?>? properties}) => _logger.debug(message);
