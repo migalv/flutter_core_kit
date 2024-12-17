@@ -1,3 +1,4 @@
+import 'package:flutter_core_kit/src/core/logging/i_log_level.dart';
 import 'package:flutter_core_kit/src/core/logging/i_logger.dart';
 import 'package:logger/logger.dart';
 import 'package:talker/talker.dart';
@@ -5,15 +6,15 @@ import 'package:talker/talker.dart';
 /// {@template ConsoleLogger}
 /// Logger that prints all the messages to the system console using the [Logger] package & [PrettyPrinter]
 ///
-/// By default prints [LogLevel.debug]
+/// By default prints [ILogLevel.debug]
 /// {@endtemplate}
 class ConsoleLogger implements ILogger {
   /// {@macro ConsoleLogger}
   ConsoleLogger({
-    LogLevel logLevel = LogLevel.debug,
+    ILogLevel logLevel = ILogLevel.debug,
   }) : _logger = Talker(
           logger: TalkerLogger(
-            settings: TalkerLoggerSettings(level: logLevel),
+            settings: TalkerLoggerSettings(level: logLevel.toTalker()),
           ),
         );
 
