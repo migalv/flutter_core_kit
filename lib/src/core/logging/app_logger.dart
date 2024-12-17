@@ -45,7 +45,7 @@ class AppLogger implements ILogger {
     Map<String, String?>? properties,
   }) {
     _consoleLogger.debug(
-      _formatLog(message, properties, addTimestamp: true),
+      _formatLog(message, properties),
       properties: properties,
     );
 
@@ -67,7 +67,7 @@ class AppLogger implements ILogger {
     Map<String, String?>? properties,
   }) {
     _consoleLogger.info(
-      _formatLog(message, properties, addTimestamp: true),
+      _formatLog(message, properties),
       properties: properties,
     );
 
@@ -97,7 +97,7 @@ class AppLogger implements ILogger {
     Map<String, String?>? properties,
   }) {
     _consoleLogger.warning(
-      _formatLog(message, properties, addTimestamp: true),
+      _formatLog(message, properties),
       error: error,
       stackTrace: stackTrace,
       properties: properties,
@@ -133,7 +133,7 @@ class AppLogger implements ILogger {
     Map<String, String?>? properties,
   }) {
     _consoleLogger.error(
-      _formatLog(message, properties, addTimestamp: true),
+      _formatLog(message, properties),
       error: error,
       stackTrace: stackTrace,
       properties: properties,
