@@ -7,7 +7,7 @@ import 'package:talker/talker.dart';
 ///
 /// By default prints [ILogLevel.debug]
 /// {@endtemplate}
-class ConsoleLogger implements ILogger {
+class ConsoleLogger extends ILogger {
   /// {@macro ConsoleLogger}
   ConsoleLogger({
     ILogLevel logLevel = ILogLevel.debug,
@@ -20,10 +20,12 @@ class ConsoleLogger implements ILogger {
   final Talker _logger;
 
   @override
-  void debug(String message, {Map<String, String?>? properties}) => _logger.debug(message);
+  void debug(String message, {Map<String, String?>? properties}) =>
+      _logger.debug(message);
 
   @override
-  void info(String message, {Map<String, String?>? properties}) => _logger.info(message);
+  void info(String message, {Map<String, String?>? properties}) =>
+      _logger.info(message);
 
   @override
   void warning(

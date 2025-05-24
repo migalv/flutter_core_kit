@@ -1,11 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter_core_kit/src/core/logging/i_logger.dart';
 
 /// A basic implementation of the [ILogger] interface. It logs to the console.
 ///
 /// Optionally it can log to any output, by adding the logger to the `registeredLoggers` list
-class AppLogger implements ILogger {
+class AppLogger extends ILogger {
   /// Creates a logger instance. It is recommended to create an instance for each file to have a different [baseContext]
   ///
   /// - [consoleLogger] Logger used to print to the console
@@ -163,11 +161,7 @@ class AppLogger implements ILogger {
 
     logMessage += '[$_baseContext]: $message';
 
-    if (properties != null) {
-      final jsonProperties = jsonEncode(properties);
-
-      logMessage += '\n - [Properties] = $jsonProperties';
-    }
+    logMessage = formatProperties(logMessage, properties);
 
     return logMessage;
   }
